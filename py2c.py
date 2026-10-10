@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from __future__ import annotations
 import sys
 
 @dataclass
@@ -6,13 +7,35 @@ class CFunction:
     name: str
     return_type: str
     params: list[str]
-    body: list[str] = field(default_factory=list)
+    body: list[CStatement] = field(default_factory=list)
+
+    def add(self, source: str) -> None:
+        self.body.append(CRawStatement(source + ";"))
+
+
+    def return_(self, return_value: str) -> None:
+        self.body.append(CReturn(return_value + ";"))
 
 
 @dataclass
 class Include:
     name: str
     system: bool
+
+
+@dataclass
+class CStatement:
+    pass
+
+
+@dataclass
+class CRawStatement(CStatement):
+    source: str
+
+
+@dataclass
+class CReturn(CStatement):
+    expression: str
 
 
 class CProgram:
@@ -48,14 +71,23 @@ class CProgram:
                     rendered_source += f'#include "{include.name}"\n'
             rendered_source += "\n"
 
-            for function in self.functions:
+        for function in self.functions:
+            if len(function.params) == 1:
+                params = function.params[0]
+            else:
                 params = ", ".join(function.params)
-                rendered_source += f"{function.return_type} {function.name}({params}) {{\n"
 
-                for line in function.body:
-                    rendered_source += "  "+ line + "\n"
+            rendered_source += f"{function.return_type} {function.name}({params}) {{\n"
 
-                rendered_source += "}\n\n"
+            for stmt in function.body:
+                if isinstance(stmt, CRawStatement):
+                    rendered_source += "  " + stmt.source + "\n"
+                elif isinstance(stmt, CReturn):
+                    rendered_source += "  return " + stmt.expression + "\n"
+                else:
+                    print("\033[1;31mERROR:\033[0m statement not identified, in `CProgram.render_()`")
+
+            rendered_source += "}\n\n"
 
         return rendered_source
 
@@ -63,4 +95,3 @@ class CProgram:
     def generate_(self) -> None:
         with open(self.file_name, 'w') as out:
             out.write(self.render_())
-

@@ -10,6 +10,8 @@
 * Function `CProgram.defun_`. Use: `function = file.defun_("main", "int", ["int argc", "char **argv"])`
 * Function `CProgram.generate_`. Use: `file.generate_()`
 * Function `CProgram.render_`. Use: `print(file.render_())`
+* Function `CFunction.add`. Use: `function.add('printf("Hello!\n")')`
+* Function `CFunction.return_`. Use: `function.return_("0")`
 
 ### Class `CProgram`
 This is the base class for a C file. It takes in a name in the constructor, and includes a list of functions that can help you write a C file.
@@ -21,4 +23,10 @@ This creates a new `CFunction` class and puts it in the program. It takes in a n
 This function writes the generated C code to the file.
 ### Function `CProgram.render_()`
 This function generates and returns the generated C code. It is used in `generate_` to generate the code, before writing.
+### Function `CFunction.add`
+This function adds a string of C source to the function's body.
+> **NOTE**: You do not need to terminate a string with `;` if you are using the `add` function, because the function adds that in for you
+### Function `CFunction.return_`
+This function takes in a value, e.g. `0` or `"Hello!"` and adds a return statement with that value to the program.
+> **NOTE**: You do not need to terminate a string with `;` if you are using the `return_` function, because the function adds that in for you 
 
