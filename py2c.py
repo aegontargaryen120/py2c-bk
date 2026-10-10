@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field
 from __future__ import annotations
+from dataclasses import dataclass, field
 import sys
 
 @dataclass
@@ -74,8 +74,10 @@ class CProgram:
         for function in self.functions:
             if len(function.params) == 1:
                 params = function.params[0]
-            else:
+            elif len(function.params) > 1:
                 params = ", ".join(function.params)
+            else:
+                params = "void"
 
             rendered_source += f"{function.return_type} {function.name}({params}) {{\n"
 

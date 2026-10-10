@@ -1,7 +1,7 @@
 # Py2C&Bk version 1
 
 ## Description:
-> Added a simple script that uses string manipulation and file writing to build out a script in C, generated entirely from function calls. 
+> Added a few ease of use features to the source code.
 ---
 
 ## API:
