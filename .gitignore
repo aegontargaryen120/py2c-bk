@@ -2,6 +2,8 @@ tmp/
 *.tmp
 *.txt
 
+*.c
+
 .venv/*
 
 __pycache__/

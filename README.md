@@ -9,6 +9,7 @@
 * Function `CProgram.include_`. Use: `file.include_("stdio.h", system=True)`
 * Function `CProgram.defun_`. Use: `function = file.defun_("main", "int", ["int argc", "char **argv"])`
 * Function `CProgram.generate_`. Use: `file.generate_()`
+* Function `CProgram.render_`. Use: `print(file.render_())`
 
 ### Class `CProgram`
 This is the base class for a C file. It takes in a name in the constructor, and includes a list of functions that can help you write a C file.
@@ -17,5 +18,7 @@ This is the function for including headers in a C file. It takes in a parameter 
 ### Function `CProgram.defun_`
 This creates a new `CFunction` class and puts it in the program. It takes in a name, return type, and parameters. You can append strings to the function as a "body", which will be generated when the `CProgram.generate_` is called.
 ### Function `CProgram.generate_`
-This function generates the C code and writes it to the file.
+This function writes the generated C code to the file.
+### Function `CProgram.render_()`
+This function generates and returns the generated C code. It is used in `generate_` to generate the code, before writing.
 
