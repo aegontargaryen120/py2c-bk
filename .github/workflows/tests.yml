@@ -1,0 +1,31 @@
+name: Py2C Tests
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Run Python and C tests
+    runs-on: [ubuntu-latest, macos-latest]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Check Python version
+        run: python3 --version
+
+      - name: Run unit and integration tests
+        run: python3 -m unittest discover -s tests -v
+

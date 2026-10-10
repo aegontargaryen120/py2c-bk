@@ -92,8 +92,8 @@ class TestCProgram(unittest.TestCase):
         source = self.program.render_()
 
         self.assertLess(
-            source.index("first()"),
-            source.index("second()"),
+            source.index("first(void)"),
+            source.index("second(void)"),
         )
 
     def test_empty_program(self):
