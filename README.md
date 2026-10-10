@@ -8,7 +8,7 @@
 * Class `CProgram`. Use: `file = CProgram("file_name.c")`
 * Function `CProgram.include_`. Use: `file.include_("stdio.h", system=True)`
 * Function `CProgram.defun_`. Use: `function = file.defun_("main", "int", ["int argc", "char **argv"])`
-* Function `CProgram.generate_`. Use: `file.generate()`
+* Function `CProgram.generate_`. Use: `file.generate_()`
 
 ### Class `CProgram`
 This is the base class for a C file. It takes in a name in the constructor, and includes a list of functions that can help you write a C file.
