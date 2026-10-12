@@ -1,7 +1,8 @@
 # Py2C&Bk version 1
 
 ## Description:
-> Added a few ease of use features to the source code.
+> Added a way to directly write content to a file instead of having it in a function.
+
 ---
 
 ## API:
@@ -12,6 +13,7 @@
 * Function `CProgram.render_`. Use: `print(file.render_())`
 * Function `CFunction.add`. Use: `function.add('printf("Hello!\n")')`
 * Function `CFunction.return_`. Use: `function.return_("0")`
+* Function `CProgram.add_`. Use: `file.add("this is my source")`
 
 ### Class `CProgram`
 This is the base class for a C file. It takes in a name in the constructor, and includes a list of functions that can help you write a C file.
@@ -29,4 +31,7 @@ This function adds a string of C source to the function's body.
 ### Function `CFunction.return_`
 This function takes in a value, e.g. `0` or `"Hello!"` and adds a return statement with that value to the program.
 > **NOTE**: You do not need to terminate a string with `;` if you are using the `return_` function, because the function adds that in for you 
+### Function `CProgram.add_`
+This function takes in a string and adds it to the file, instead of needing to have it in a function.
+> **NOTE**: You need to terminate the string passed to this function with a `;` because it does not automatically add that for you.
 

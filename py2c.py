@@ -43,6 +43,7 @@ class CProgram:
         self.file_name = file_name
         self.includes: list[Include] = []
         self.functions: list[CFunction] = []
+        self.body: list[str] = []
 
 
     def include_(self, header: str, system: bool = True) -> None:
@@ -52,6 +53,10 @@ class CProgram:
         else:
             print(f"\033[1;31mERROR:\033[0m header file `{header}` already included.")
             sys.exit(1)
+
+
+    def add_(self, source: str) -> None:
+        self.body.append(source)
 
 
     def defun_(self, name: str, return_type: str, params: list[str]) -> CFunction:
@@ -70,6 +75,9 @@ class CProgram:
                 else:
                     rendered_source += f'#include "{include.name}"\n'
             rendered_source += "\n"
+
+        rendered_source += "\n".join(self.body)
+        rendered_source += "\n"
 
         for function in self.functions:
             if len(function.params) == 1:
@@ -97,3 +105,4 @@ class CProgram:
     def generate_(self) -> None:
         with open(self.file_name, 'w') as out:
             out.write(self.render_())
+
